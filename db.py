@@ -84,3 +84,17 @@ def photos_find_by_id(id):
         (id,),
     ).fetchone()
     return dict(row)
+
+# code to update data for a update/patch/:id action
+def photos_update_by_id(id, name, width, height):
+    conn = connect_to_db()
+    row = conn.execute(
+        """
+        UPDATE photos SET name = ?, width = ?, height = ?
+        WHERE id = ?
+        RETURNING *
+        """,
+        (name, width, height, id),
+    ).fetchone()
+    conn.commit()
+    return dict(row)
