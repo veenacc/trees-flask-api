@@ -33,3 +33,8 @@ def update(id):
     width = request.form.get("width")
     height = request.form.get("height")
     return db.photos_update_by_id(id, name, width, height)
+
+# delete request for destroy/:id action
+@app.route("/photos/<id>.json", methods=["DELETE"])
+def destroy(id):
+    return db.photos_destroy_by_id(id)
